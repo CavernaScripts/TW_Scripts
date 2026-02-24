@@ -76,10 +76,9 @@
                 #cap-search-field { width: 95%; padding: 8px; border: 1px solid #3b240b; border-radius: 4px; font-size: 14px; }
                 .cap-tabs { display: flex; background: #d6c49a; border-bottom: 1px solid #3b240b; flex-wrap: wrap; }
                 .cap-tab { flex: 1; min-width: 80px; padding: 10px 5px; text-align: center; cursor: pointer; font-size: 11px; font-weight: bold; color: #3b240b; border-right: 1px solid #3b240b22; transition: 0.2s; }
-                .cap-tab.active { background: #f4e4bc; border-bottom: 4px solid #28a745; }
+                .cap-tab.active { background: #f4e4bc; border-bottom: 4px solid #28a745; margin-bottom: -1px; }
                 .cap-list { max-height: 400px; overflow-y: auto; padding: 10px; background: #f4e4bc; }
                 .cap-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #3b240b15; }
-                .cap-item:hover { background: #eee4cc; }
                 .cap-name { font-size: 12px; color: #3b240b; font-weight: bold; }
                 .cap-btn-inst { background: #28a745; color: #fff; border: none; padding: 6px 14px; cursor: pointer; border-radius: 4px; font-size: 11px; font-weight: bold; }
             `;
@@ -128,14 +127,11 @@
             });
         },
 
-        // PADRÃO REDALERT PARA ADICIONAR NA BARRA
+        // LÓGICA DE INSTALAÇÃO SEM FILTROS PRÉVIOS (PADRÃO REDALERT)
         handleAddToQuickBar: function(name, scriptCode) {
-            const self = this;
-            
-            // Garante o formato 'javascript:...'
             let selectedScript = scriptCode.startsWith('javascript:') ? scriptCode : 'javascript:' + scriptCode;
             
-            // O segredo está nestes parâmetros exatos
+            // Parâmetros exatos que o servidor do TW recebe ao salvar um script
             let scriptData = `hotkey=&name=${encodeURIComponent(name)}&href=${encodeURIComponent(selectedScript)}`;
             let action = '/game.php?screen=settings&mode=quickbar_edit&action=quickbar_edit&';
 
@@ -144,10 +140,10 @@
                 type: 'POST',
                 data: scriptData + `&h=${csrf_token}`,
                 success: function() {
-                    UI.SuccessMessage("Item adicionado à Barra de Atalhos!");
+                    UI.SuccessMessage("Adicionado à Barra de Atalhos com sucesso!");
                 },
                 error: function() {
-                    UI.ErrorMessage("Houve um erro ao adicionar o script.");
+                    UI.ErrorMessage("Houve um problema. Verifique se sua Conta Premium está ativa.");
                 }
             });
         }
