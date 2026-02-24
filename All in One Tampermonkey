@@ -97,7 +97,7 @@
         renderBarra: function() {
             if ($('#quickbar_outer').length) $('#quickbar_outer').remove();
             const extras = JSON.parse(GM_getValue('caverna_extras', '[]'));
-            
+
             // Linha 1: Fixos
             let fixosHtml = '';
             this.fixos.forEach(s => {
@@ -171,7 +171,7 @@
             $('body').append(panelHtml);
 
             $('#close-hub').on('click', () => $('#caverna-hub-panel').hide());
-            
+
             $('.cav-hub-inst').on('click', (e) => {
                 const id = $(e.target).data('id');
                 const name = $(`#hub-n-${id}`).val();
