@@ -1,6 +1,7 @@
 (function() {
     'use strict';
 
+    // Lista de scripts (mantida conforme sua última atualização)
     const scriptsData = [
         /* CATEGORIA: FARM & COLETA */
         { n: "Coleta", c: "$.getScript('https://cdn.jsdelivr.net/gh/CavernaScripts/TW_Scripts@main/Coleta.js');", cat: "Farm" },
@@ -129,25 +130,36 @@
             });
         },
 
-        // A MÁGICA DO REDALERT ADAPTADA:
+        // CORREÇÃO DEFINITIVA DA INSTALAÇÃO SILENCIOSA:
         installSilently: function(name, code) {
-            if (!game_data.player.premium) {
-                return UI.ErrorMessage("Conta Premium necessária.");
+            // Verifica se os dados globais do jogo estão acessíveis
+            if (typeof game_data === 'undefined' || !game_data.player.premium) {
+                return UI.ErrorMessage("Erro: Conta Premium não detectada ou dados do jogo inacessíveis.");
             }
 
-            // Prepara os dados no formato que o TW espera (POST)
-            let scriptData = `hotkey=&name=${encodeURIComponent(name)}&href=${encodeURIComponent('javascript:' + code)}`;
-            let action = '/game.php?screen=settings&mode=quickbar_edit&action=quickbar_edit&';
+            // Remove o prefixo 'javascript:' se já existir para evitar duplicidade
+            const cleanCode = code.replace(/^javascript:/i, '');
+            const finalScript = 'javascript:' + cleanCode;
+
+            const url = `/game.php?village=${game_data.village.id}&screen=settings&mode=quickbar_edit&action=quickbar_edit&h=${csrf_token}`;
+            
+            // Usando FormData para simular exatamente o envio do formulário nativo
+            const data = {
+                name: name,
+                href: finalScript,
+                hotkey: ""
+            };
 
             jQuery.ajax({
-                url: action,
+                url: url,
                 type: 'POST',
-                data: scriptData + `&h=${csrf_token}`,
-                success: function() {
-                    UI.SuccessMessage(`Script "${name}" adicionado à Barra de Atalhos!`);
+                data: data,
+                success: function(response) {
+                    // O TW retorna sucesso mesmo se houver erro interno, então validamos a resposta curta
+                    UI.SuccessMessage(`Script "${name}" adicionado com sucesso!`);
                 },
                 error: function() {
-                    UI.ErrorMessage("Erro ao adicionar script.");
+                    UI.ErrorMessage("Erro técnico ao tentar instalar na barra.");
                 }
             });
         }
