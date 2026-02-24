@@ -1,7 +1,6 @@
 (function() {
     'use strict';
 
-    // Lista de scripts (mantida conforme sua última atualização)
     const scriptsData = [
         /* CATEGORIA: FARM & COLETA */
         { n: "Coleta", c: "$.getScript('https://cdn.jsdelivr.net/gh/CavernaScripts/TW_Scripts@main/Coleta.js');", cat: "Farm" },
@@ -77,13 +76,12 @@
                 #cap-search-field { width: 95%; padding: 8px; border: 1px solid #3b240b; border-radius: 4px; font-size: 14px; }
                 .cap-tabs { display: flex; background: #d6c49a; border-bottom: 1px solid #3b240b; flex-wrap: wrap; }
                 .cap-tab { flex: 1; min-width: 80px; padding: 10px 5px; text-align: center; cursor: pointer; font-size: 11px; font-weight: bold; color: #3b240b; border-right: 1px solid #3b240b22; transition: 0.2s; }
-                .cap-tab.active { background: #f4e4bc; border-bottom: 4px solid #28a745; margin-bottom: -1px; }
+                .cap-tab.active { background: #f4e4bc; border-bottom: 4px solid #28a745; }
                 .cap-list { max-height: 400px; overflow-y: auto; padding: 10px; background: #f4e4bc; }
                 .cap-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #3b240b15; }
                 .cap-item:hover { background: #eee4cc; }
                 .cap-name { font-size: 12px; color: #3b240b; font-weight: bold; }
                 .cap-btn-inst { background: #28a745; color: #fff; border: none; padding: 6px 14px; cursor: pointer; border-radius: 4px; font-size: 11px; font-weight: bold; }
-                .cap-btn-inst:hover { background: #218838; }
             `;
             $('<style>').text(css).appendTo('head');
         },
@@ -124,42 +122,32 @@
                 return matchCat && matchName;
             });
             filtered.forEach(s => {
-                const item = $(`<div class="cap-item"><span class="cap-name">${s.n}</span><button class="cap-btn-inst">Adicionar à Barra</button></div>`);
-                item.find('button').on('click', () => this.installSilently(s.n, s.c));
+                const item = $(`<div class="cap-item"><span class="cap-name">${s.n}</span><button class="cap-btn-inst">Adicionar</button></div>`);
+                item.find('button').on('click', () => this.handleAddToQuickBar(s.n, s.c));
                 container.append(item);
             });
         },
 
-        // CORREÇÃO DEFINITIVA DA INSTALAÇÃO SILENCIOSA:
-        installSilently: function(name, code) {
-            // Verifica se os dados globais do jogo estão acessíveis
-            if (typeof game_data === 'undefined' || !game_data.player.premium) {
-                return UI.ErrorMessage("Erro: Conta Premium não detectada ou dados do jogo inacessíveis.");
-            }
-
-            // Remove o prefixo 'javascript:' se já existir para evitar duplicidade
-            const cleanCode = code.replace(/^javascript:/i, '');
-            const finalScript = 'javascript:' + cleanCode;
-
-            const url = `/game.php?village=${game_data.village.id}&screen=settings&mode=quickbar_edit&action=quickbar_edit&h=${csrf_token}`;
+        // PADRÃO REDALERT PARA ADICIONAR NA BARRA
+        handleAddToQuickBar: function(name, scriptCode) {
+            const self = this;
             
-            // Usando FormData para simular exatamente o envio do formulário nativo
-            const data = {
-                name: name,
-                href: finalScript,
-                hotkey: ""
-            };
+            // Garante o formato 'javascript:...'
+            let selectedScript = scriptCode.startsWith('javascript:') ? scriptCode : 'javascript:' + scriptCode;
+            
+            // O segredo está nestes parâmetros exatos
+            let scriptData = `hotkey=&name=${encodeURIComponent(name)}&href=${encodeURIComponent(selectedScript)}`;
+            let action = '/game.php?screen=settings&mode=quickbar_edit&action=quickbar_edit&';
 
             jQuery.ajax({
-                url: url,
+                url: action,
                 type: 'POST',
-                data: data,
-                success: function(response) {
-                    // O TW retorna sucesso mesmo se houver erro interno, então validamos a resposta curta
-                    UI.SuccessMessage(`Script "${name}" adicionado com sucesso!`);
+                data: scriptData + `&h=${csrf_token}`,
+                success: function() {
+                    UI.SuccessMessage("Item adicionado à Barra de Atalhos!");
                 },
                 error: function() {
-                    UI.ErrorMessage("Erro técnico ao tentar instalar na barra.");
+                    UI.ErrorMessage("Houve um erro ao adicionar o script.");
                 }
             });
         }
