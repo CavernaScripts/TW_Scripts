@@ -1,3 +1,4 @@
+javascript:
 (function() {
     "use strict";
 
