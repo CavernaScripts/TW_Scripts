@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="banner.png" width="100%"/>
-</p>
-
 # 🐺 CavernaScripts
 
 <p align="center">
