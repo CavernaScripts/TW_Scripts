@@ -1,43 +1,144 @@
-# ⚔️ CavernaScripts - Suíte de Automação para Tribal Wars
+# 🐺 CavernaScripts – Biblioteca de Scripts para Tribal Wars
 
-Bem-vindo ao repositório oficial do **SeaCluster**. Aqui estão organizados os scripts desenvolvidos para otimizar a performance estratégica e a automação de processos no Tribal Wars.
-
----
-
-## 📂 Manual de Uso dos Scripts
-
-| Script | Onde Executar | Funcionalidade Principal |
-| :--- | :--- | :--- |
-| **Muralha BB** | Assistente de Saque (AM) | Envio automático de Bárbaros + Arietes para demolição de muralhas em aldeias bárbaras. |
-| **Agendador de Ataques** | Confirmação de Ataque | Programa o envio exato das tropas (ms) para bater o delay do servidor. |
-| **Adicionar Amigos** | Rankings / Classificações | Adiciona automaticamente todos os jogadores da lista atual como amigos. |
-| **CapNickCoord** | Mapa / Perfil de Jogador | Extrai uma lista limpa com o Nick e todas as Coordenadas do alvo. |
-| **Classificação Player K** | Rankings por Continente | Filtra jogadores por ODA/Pontuação dentro de um K específico. |
-| **All in One (Tampermonkey)** | Global (Automático) | Suíte completa que unifica farm, coleta e alertas em um único painel. |
+Coleção organizada de scripts para melhorar a experiência no **Tribal Wars**, focada em produtividade, análise e apoio estratégico.
 
 ---
 
-## 🛠️ Detalhes Técnicos
+## ⚔️ Sobre o projeto
 
-### 🧱 Muralha BB
-O script injeta um botão **M** na tabela de saques. Ao clicar, ele abre uma janela auxiliar que preenche os campos e confirma o ataque de forma independente, garantindo que o alvo seja selecionado corretamente.
-> *Configurável via interface no topo da tabela.*
+O **CavernaScripts** é um conjunto de scripts desenvolvidos para facilitar ações repetitivas, organizar informações e otimizar decisões dentro do jogo.
 
-### 🕒 Agendador de Ataques
-Ideal para coordenar OPs. Ao ser executado na tela de confirmação, ele permite definir o horário de chegada. O script realiza o clique de confirmação no milissegundo exato.
-
-### 📊 Classificação Player K
-Essencial para análise de mapa. Permite identificar rapidamente quais jogadores no seu continente possuem alto ODA (ameaças) ou apenas pontos (alvos fáceis).
+> ❗ Projeto focado em **qualidade de uso e praticidade**, não em automação invasiva.
 
 ---
 
-## 🚀 Como Instalar
-1. Certifique-se de ter a extensão **Tampermonkey** instalada (para scripts `.user.js`).
-2. Para scripts `.js` simples, crie um novo favorito no seu navegador e cole o código no campo "URL".
-3. Execute o script na página correspondente conforme indicado no manual acima.
+## 🚀 Scripts em destaque
+
+### 🧠 Hub principal
+
+* **All in One Tampermonkey**
+
+  * Central com vários scripts integrados
+  * Interface fixa dentro do jogo
+  * Atalhos rápidos e navegação facilitada
 
 ---
 
-<p align="right">
-  <i>by Cap Caverna</i> 🛡️
-</p>
+### ⚔️ Combate & Ataques
+
+* Agendador de Ataques
+* NT Agendado
+* Derrubar Muralha
+
+---
+
+### 🌾 Coleta & Recursos
+
+* Coleta em Massa
+* Coleta Individual
+* Nova Coleta (versão otimizada)
+* Vender Recursos
+
+---
+
+### 📊 Análise & Inteligência
+
+* Classificação Player K
+* Filtro por Tribo
+* Histórico de Players
+* Identificador de Ataques
+* CapNickCoord
+
+---
+
+### 🤝 Social & Utilidades
+
+* Adicionar Amigos
+* Sistema de Convites
+
+---
+
+## 📦 Packs
+
+* **Pack Caverna**
+  Conjunto de scripts prontos para uso rápido
+
+* **All in One**
+  Versão centralizada com múltiplas funcionalidades
+
+---
+
+## 🛠️ Como instalar
+
+### Método 1 – Tampermonkey (Recomendado)
+
+1. Instale a extensão:
+   👉 https://www.tampermonkey.net/
+
+2. Abra o script desejado no GitHub
+
+3. Clique em **Raw**
+
+4. O Tampermonkey irá detectar automaticamente
+
+5. Clique em **Instalar**
+
+---
+
+## 📷 Interface (Exemplo)
+
+> 💡 Adicione aqui prints do seu sistema depois (assets/screenshots)
+
+---
+
+## 📌 Organização do repositório
+
+```
+scripts/
+├─ combate/
+├─ coleta/
+├─ analise/
+├─ social/
+├─ economia/
+├─ packs/
+└─ legacy/
+```
+
+---
+
+## ⚠️ Avisos
+
+* Uso por conta e risco
+* Sempre revise os scripts antes de utilizar
+* Evite uso excessivo ou comportamento suspeito no jogo
+
+---
+
+## 📜 Licença
+
+Este projeto é distribuído gratuitamente.
+
+❗ **Não é permitida a comercialização.**
+
+Se alguém estiver vendendo este material:
+
+> denuncie.
+
+---
+
+## 👑 Autor
+
+Desenvolvido por **CavernaScripts**
+
+---
+
+## 🔥 Futuro do projeto
+
+* Interface mais moderna no Hub
+* Melhor organização dos scripts
+* Atualizações contínuas
+* Integração com sistemas externos (em estudo)
+
+---
+
+💬 Se tiver sugestões ou ideias, sinta-se à vontade para contribuir!
