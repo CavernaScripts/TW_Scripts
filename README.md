@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="banner.png" width="100%"/>
+</p>
+
 # 🐺 CavernaScripts – Biblioteca de Scripts para Tribal Wars
 
 Coleção organizada de scripts para melhorar a experiência no **Tribal Wars**, focada em produtividade, análise e apoio estratégico.
