@@ -2,147 +2,172 @@
   <img src="banner.png" width="100%"/>
 </p>
 
-# 🐺 CavernaScripts – Biblioteca de Scripts para Tribal Wars
+# 🐺 CavernaScripts
 
-Coleção organizada de scripts para melhorar a experiência no **Tribal Wars**, focada em produtividade, análise e apoio estratégico.
+<p align="center">
+  <img src="banner.png" width="100%" alt="CavernaScripts Banner"/>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/JavaScript-100%25-f7df1e?style=for-the-badge&logo=javascript&logoColor=000" alt="JavaScript"/>
+  <img src="https://img.shields.io/badge/Tampermonkey-Scripts-darkgreen?style=for-the-badge" alt="Tampermonkey Scripts"/>
+  <img src="https://img.shields.io/badge/Status-Em%20desenvolvimento-b8860b?style=for-the-badge" alt="Status"/>
+  <img src="https://img.shields.io/badge/Foco-Produtividade%20%7C%20An%C3%A1lise%20%7C%20Estrat%C3%A9gia-8b0000?style=for-the-badge" alt="Foco"/>
+</p>
+
+<p align="center">
+  <b>Biblioteca de scripts para Tribal Wars</b><br/>
+  produtividade, análise, interface e apoio estratégico em uma coleção organizada.
+</p>
 
 ---
 
 ## ⚔️ Sobre o projeto
 
-O **CavernaScripts** é um conjunto de scripts desenvolvidos para facilitar ações repetitivas, organizar informações e otimizar decisões dentro do jogo.
+O **CavernaScripts** reúne scripts voltados para melhorar a experiência no **Tribal Wars**, com foco em praticidade, organização de informação, apoio visual e ganho de eficiência no uso diário.
 
-> ❗ Projeto focado em **qualidade de uso e praticidade**, não em automação invasiva.
+A proposta do repositório é centralizar ferramentas úteis em um só lugar, mantendo a coleção mais organizada, acessível e fácil de atualizar.
 
 ---
 
-## 🚀 Scripts em destaque
+## 🚀 Destaques
+
+* Hub principal com múltiplos scripts
+* Ferramentas de coleta e recursos
+* Utilitários de ataque e agendamento
+* Scripts de análise e leitura de informações
+* Packs prontos para uso
+* Estrutura em evolução para melhor organização
+
+---
+
+## 📂 Catálogo de scripts
 
 ### 🧠 Hub principal
 
-* **All in One Tampermonkey**
+* `All in One Tampermonkey.user.js`
+* `Pack_Caverna.js`
 
-  * Central com vários scripts integrados
-  * Interface fixa dentro do jogo
-  * Atalhos rápidos e navegação facilitada
+### ⚔️ Combate e ataques
 
----
+* `Agendador_de_Ataques.js`
+* `NT_Agendado.js`
+* `Derrubar_muralha.js`
 
-### ⚔️ Combate & Ataques
+### 🌾 Coleta e recursos
 
-* Agendador de Ataques
-* NT Agendado
-* Derrubar Muralha
+* `Coleta_em_Massa.js`
+* `Coleta_Individual.js`
+* `New_Coleta-Massa.js`
+* `Vender_Recursos.js`
 
----
+### 📊 Análise e inteligência
 
-### 🌾 Coleta & Recursos
+* `CapNickCoord.js`
+* `Classificacao_Player_K.js`
+* `Filtro_Tribo_K.js`
+* `Historico_Players_Tribo.js`
+* `Identificador_de_ATK.js`
 
-* Coleta em Massa
-* Coleta Individual
-* Nova Coleta (versão otimizada)
-* Vender Recursos
+### 🤝 Social e utilidades
 
----
-
-### 📊 Análise & Inteligência
-
-* Classificação Player K
-* Filtro por Tribo
-* Histórico de Players
-* Identificador de Ataques
-* CapNickCoord
+* `Adicionar_Amigos.js`
+* `convidar.js`
 
 ---
 
-### 🤝 Social & Utilidades
+## 🛠️ Instalação
 
-* Adicionar Amigos
-* Sistema de Convites
+### Método recomendado: Tampermonkey
 
----
-
-## 📦 Packs
-
-* **Pack Caverna**
-  Conjunto de scripts prontos para uso rápido
-
-* **All in One**
-  Versão centralizada com múltiplas funcionalidades
-
----
-
-## 🛠️ Como instalar
-
-### Método 1 – Tampermonkey (Recomendado)
-
-1. Instale a extensão:
-   👉 https://www.tampermonkey.net/
-
-2. Abra o script desejado no GitHub
-
+1. Instale a extensão **Tampermonkey**
+2. Abra o script desejado no repositório
 3. Clique em **Raw**
-
-4. O Tampermonkey irá detectar automaticamente
-
-5. Clique em **Instalar**
+4. Confirme a instalação no Tampermonkey
+5. Ative o script e faça o teste no jogo
 
 ---
 
-## 📷 Interface (Exemplo)
+## 📦 Estrutura atual do projeto
 
-> 💡 Adicione aqui prints do seu sistema depois (assets/screenshots)
+```text
+TW_Scripts/
+├── README.md
+├── banner.png
+├── All in One Tampermonkey.user.js
+├── Pack_Caverna.js
+├── Agendador_de_Ataques.js
+├── Coleta_em_Massa.js
+├── Coleta_Individual.js
+├── New_Coleta-Massa.js
+├── Vender_Recursos.js
+├── CapNickCoord.js
+├── Classificacao_Player_K.js
+├── Filtro_Tribo_K.js
+├── Historico_Players_Tribo.js
+├── Identificador_de_ATK.js
+├── Adicionar_Amigos.js
+└── convidar.js
+```
 
 ---
 
-## 📌 Organização do repositório
+## 🧭 Organização planejada
 
+A ideia é evoluir o repositório para uma estrutura mais limpa e separada por categoria:
+
+```text
+TW_Scripts/
+├── assets/
+├── docs/
+├── scripts/
+│   ├── combate/
+│   ├── coleta/
+│   ├── analise/
+│   ├── social/
+│   ├── economia/
+│   ├── packs/
+│   └── legacy/
+└── README.md
 ```
-scripts/
-├─ combate/
-├─ coleta/
-├─ analise/
-├─ social/
-├─ economia/
-├─ packs/
-└─ legacy/
-```
+
+---
+
+## 📌 Objetivos do repositório
+
+* Organizar melhor a coleção de scripts
+* Facilitar instalação e atualização
+* Melhorar apresentação visual no GitHub
+* Separar scripts principais, packs e versões antigas
+* Criar uma base mais profissional para manutenção futura
 
 ---
 
 ## ⚠️ Avisos
 
-* Uso por conta e risco
-* Sempre revise os scripts antes de utilizar
-* Evite uso excessivo ou comportamento suspeito no jogo
+* Este repositório é voltado para organização e distribuição da coleção
+* Todo uso deve ser feito com responsabilidade
+* Revise cada script antes de instalar
+* Mudanças no jogo podem afetar funcionamento, compatibilidade ou interface
 
 ---
 
-## 📜 Licença
+## 📜 Licença e uso
 
-Este projeto é distribuído gratuitamente.
+Este material é disponibilizado gratuitamente.
 
-❗ **Não é permitida a comercialização.**
+**Não é permitida a comercialização deste conteúdo sem autorização.**
 
-Se alguém estiver vendendo este material:
-
-> denuncie.
+Se houver redistribuição indevida, venda de material gratuito ou uso fora da proposta original, isso contraria a finalidade do projeto.
 
 ---
 
 ## 👑 Autor
 
-Desenvolvido por **CavernaScripts**
+<p align="center">
+  <b>CavernaScripts</b>
+</p>
 
----
-
-## 🔥 Futuro do projeto
-
-* Interface mais moderna no Hub
-* Melhor organização dos scripts
-* Atualizações contínuas
-* Integração com sistemas externos (em estudo)
-
----
-
-💬 Se tiver sugestões ou ideias, sinta-se à vontade para contribuir!
+<p align="center">
+  coleção autoral em evolução contínua para Tribal Wars
+</p>
