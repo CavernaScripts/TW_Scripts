@@ -1,90 +1,73 @@
 javascript: 
-// ==UserScript==
-// @name         150 - Planejador XPTO 
-// @author       Vende se
-// @version      0.2
-// @include      https://*screen=place&try=confirm*
-// @require https://code.jquery.com/jquery-2.2.4.min.js
-// @downloadURL https://raw.githubusercontent.com/victorgare/tribalwars/master/UserScript/PlanejadorComandos.user.js
-// @updateURL   https://github.com/victorgare/tribalwars/raw/master/UserScript/PlanejadorComandos.user.js
-// @run-at       document-start
-// ==/UserScript==
-
-CommandSender = {
-    confirmButton: null,
-    duration: null,
-    dateNow: null,
-    offset: null,
-    init: function() {
-        $($('#command-data-form')['find']('tbody')[0])['append']('<tr><td>Chegada:</td><td> <input type="datetime-local" id="CStime" step=".001"> </td></tr><tr> <td>Offset:</td><td> <input type="number" id="CSoffset"> <button type="button" id="CSbutton" class="btn">Confirmar</button> </td></tr>');
-        this['confirmButton'] = $('#troop_confirm_submit');
-        this['duration'] = $('#command-data-form')['find']('td:contains("Dura\xE7\xE3o:")')['next']()['text']()['split'](':')['map'](Number);
-        this['offset'] = localStorage['getItem']('CS.offset') || -250;
-        this['dateNow'] = this['convertToInput'](new Date());
-        $('#CSoffset')['val'](this['offset']);
-        $('#CStime')['val'](this['dateNow']);
-        $('#CSbutton')['click'](function() {
-            var _0xbbd0x1 = Number($('#CSoffset')['val']());
-            var _0xbbd0x2 = CommandSender['getAttackTime']();
-            localStorage['setItem']('CS.offset', _0xbbd0x1);
-            CommandSender['confirmButton']['addClass']('btn-disabled');
-            setTimeout(function() {
-                CommandSender['confirmButton']['click']()
-            }, _0xbbd0x2 - Timing['getCurrentServerTime']() + _0xbbd0x1);
-            this['disabled'] = true
-        })
-    },
-    getAttackTime: function() {
-        var _0xbbd0x3 = new Date($('#CStime')['val']()['replace']('T', ' '));
-        _0xbbd0x3['setHours'](_0xbbd0x3['getHours']() - this['duration'][0]);
-        _0xbbd0x3['setMinutes'](_0xbbd0x3['getMinutes']() - this['duration'][1]);
-        _0xbbd0x3['setSeconds'](_0xbbd0x3['getSeconds']() - this['duration'][2]);
-        return _0xbbd0x3
-    },
-    convertToInput: function(_0xbbd0x4) {
-        _0xbbd0x4['setHours'](_0xbbd0x4['getHours']() + this['duration'][0]);
-        _0xbbd0x4['setMinutes'](_0xbbd0x4['getMinutes']() + this['duration'][1]);
-        _0xbbd0x4['setSeconds'](_0xbbd0x4['getSeconds']() + this['duration'][2]);
-        var a = {
-            y: _0xbbd0x4['getFullYear'](),
-            m: _0xbbd0x4['getMonth']() + 1,
-            d: _0xbbd0x4['getDate'](),
-            time: _0xbbd0x4['toTimeString']()['split'](' ')[0],
-            ms: _0xbbd0x4['getMilliseconds']()
-        };
-        if (a['m'] < 10) {
-            a['m'] = '0' + a['m']
-        };
-        if (a['d'] < 10) {
-            a['d'] = '0' + a['d']
-        };
-        if (a['ms'] < 100) {
-            a['ms'] = '0' + a['ms'];
-            if (a['ms'] < 10) {
-                a['ms'] = '0' + a['ms']
+(function() {
+    'use strict';
+    const CommandSender = {
+        confirmButton: null,
+        durationMs: 0,
+        init() {
+            if ($('#CStime').length) return;
+            const formTable = $('#command-data-form tbody')[0];
+            if (!formTable) return;
+            $(formTable).append(`
+                <tr class="cs-row" style="background-color:#f4e4bc;">
+                    <td><b>Chegada Desejada:</b></td>
+                    <td><input type="datetime-local" id="CStime" step=".001" style="font-size:9pt;font-family:Verdana;width:200px;"></td>
+                </tr>
+                <tr class="cs-row" style="background-color:#f4e4bc;">
+                    <td><b>Ajuste (Offset ms):</b></td>
+                    <td>
+                        <input type="number" id="CSoffset" style="font-size:9pt;font-family:Verdana;width:60px;">
+                        <span id="ping-info" style="font-size:8pt;color:#666;margin-left:5px;"></span>
+                        <button type="button" id="CSbutton" class="btn" style="float:right;">Agendar Comando</button>
+                    </td>
+                </tr>
+            `);
+            this.confirmButton = $('#troop_confirm_submit');
+            const durationText = $('#command-data-form')
+                .find('td:contains("Duração:")')
+                .next()
+                .text()
+                .trim();
+            const [h, m, s] = durationText.split(':').map(Number);
+            this.durationMs = ((h * 3600) + (m * 60) + s) * 1000;
+            let serverLag = 0;
+            if (typeof Timing !== 'undefined' && typeof Timing.offset_to_server !== 'undefined') {
+                serverLag = -Math.round(Timing.offset_to_server);
+                $('#ping-info').text(`(Auto: ${serverLag}ms)`);
             }
-        };
-        return a['y'] + '-' + a['m'] + '-' + a['d'] + 'T' + a['time'] + '.' + a['ms']
-    },
-    addGlobalStyle: function(_0xbbd0x6) {
-        var _0xbbd0x7, _0xbbd0x8;
-        _0xbbd0x7 = document['getElementsByTagName']('head')[0];
-        if (!_0xbbd0x7) {
-            return
-        };
-        _0xbbd0x8 = document['createElement']('style');
-        _0xbbd0x8['type'] = 'text/css';
-        _0xbbd0x8['innerHTML'] = _0xbbd0x6;
-        _0xbbd0x7['appendChild'](_0xbbd0x8)
-    }
-};
-CommandSender['addGlobalStyle']('#CStime, #CSoffset {font-size: 9pt;font-family: Verdana,Arial;}#CSbutton {float:right;}');
-var a = setInterval(function() {
-    if (document['getElementById']('command-data-form') && jQuery) {
-        CommandSender['init']();
-        clearInterval(a)
-    }
-}, 1);
-setTimeout(function() {
-    $('#CSoffset')['eq'](0)['val']('-' + Timing['offset_to_server'])
-}, 2000)
+            const savedOffset = localStorage.getItem('CS.offset');
+            $('#CSoffset').val(savedOffset !== null ? savedOffset : serverLag);
+            $('#CStime').val(this.toDatetimeLocalValue(Date.now() + this.durationMs));
+            $('#CSbutton').on('click', () => {
+                const userOffset = parseInt($('#CSoffset').val(), 10) || 0;
+                const targetTime = this.getSendTime();
+                localStorage.setItem('CS.offset', userOffset);
+                this.confirmButton.addClass('btn-disabled');
+                const delay = targetTime - Timing.getCurrentServerTime() + userOffset;
+                console.log(`[Análise] Comando agendado com offset de ${userOffset}ms`);
+                setTimeout(() => {
+                    this.confirmButton.click();
+                }, Math.max(0, delay));
+                $('#CSbutton').prop('disabled', true).text('Agendado...');
+                $('.cs-row').css('background-color', '#d5ffce');
+            });
+        },
+        getSendTime() {
+            const arrivalDate = new Date($('#CStime').val());
+            return arrivalDate.getTime() - this.durationMs;
+        },
+        toDatetimeLocalValue(timestamp) {
+            const d = new Date(timestamp);
+            const pad = (n, size = 2) => String(n).padStart(size, '0');
+            return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`
+                + `T${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}.`
+                + `${pad(d.getMilliseconds(), 3)}`;
+        }
+    };
+    const checkExist = setInterval(() => {
+        if (typeof jQuery === 'undefined' || typeof Timing === 'undefined') return;
+        if (!$('#command-data-form').length) return;
+        clearInterval(checkExist);
+        CommandSender.init();
+    }, 100);
+})();
