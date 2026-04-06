@@ -1,8 +1,8 @@
-javascript:(function () {
+(function () {
     'use strict';
 
     const APP = {
-        version: 'v6-fechada',
+        version: 'v6-premium-alltroops',
         ids: {
             style: 'mcv6-style',
             header: 'mcv6-th',
@@ -26,8 +26,6 @@ javascript:(function () {
             doneRow: 'mcv6-row-done'
         },
         cfg: {
-            axe: 50,
-            ram: 10,
             timeoutMs: 20000,
             checkMs: 350,
             scanMs: 2200,
@@ -52,7 +50,7 @@ javascript:(function () {
     }
 
     function log() {
-        console.log('[Modelo M v6]', ...arguments);
+        console.log('[Derruba Muralha]', ...arguments);
     }
 
     function q(sel, root) {
@@ -76,52 +74,71 @@ javascript:(function () {
             .${APP.cls.btnMini} {
                 display:inline-block;
                 min-width:22px;
-                padding:3px 7px;
+                height:22px;
+                line-height:20px;
+                padding:0 6px;
                 margin:0 1px;
-                background:#8b4513;
-                color:#fff !important;
-                border:1px solid #3b240b;
+                background:linear-gradient(to bottom,#f8e6b6 0%,#d7b574 100%);
+                color:#3b240b !important;
+                border:1px solid #7d510f;
                 border-radius:3px;
                 text-decoration:none !important;
                 cursor:pointer;
                 font-weight:bold;
                 font-size:11px;
-                line-height:16px;
                 text-align:center;
                 box-sizing:border-box;
                 user-select:none;
+                box-shadow:
+                    inset 0 1px 0 rgba(255,255,255,.55),
+                    0 1px 1px rgba(0,0,0,.18);
             }
+
             .${APP.cls.btn}:hover,
             .${APP.cls.btnPlus}:hover,
             .${APP.cls.btnRun}:hover,
             .${APP.cls.btnStop}:hover,
             .${APP.cls.btnMini}:hover {
-                background:#a0522d;
+                background:linear-gradient(to bottom,#fff0c7 0%,#e2c182 100%);
+                color:#2a1707 !important;
             }
+
             .${APP.cls.btn}.${APP.cls.working},
             .${APP.cls.btnPlus}.${APP.cls.working},
             .${APP.cls.btnMini}.${APP.cls.working} {
-                background:#666 !important;
+                background:linear-gradient(to bottom,#d9d9d9 0%,#bdbdbd 100%) !important;
+                color:#444 !important;
                 cursor:wait !important;
                 pointer-events:none !important;
             }
+
             .${APP.cls.btn}.${APP.cls.ok},
             .${APP.cls.btnPlus}.${APP.cls.ok},
             .${APP.cls.btnMini}.${APP.cls.ok} {
-                background:#21881e !important;
+                background:linear-gradient(to bottom,#dff4cf 0%,#9fd17d 100%) !important;
+                color:#214411 !important;
+                border-color:#5f8f43 !important;
             }
+
             .${APP.cls.btn}.${APP.cls.err},
             .${APP.cls.btnPlus}.${APP.cls.err},
             .${APP.cls.btnMini}.${APP.cls.err} {
-                background:#b33 !important;
+                background:linear-gradient(to bottom,#f7d6d6 0%,#d98e8e 100%) !important;
+                color:#5a1616 !important;
+                border-color:#9b4f4f !important;
             }
+
             .${APP.cls.btn}.${APP.cls.queued},
             .${APP.cls.btnPlus}.${APP.cls.queued},
             .${APP.cls.btnMini}.${APP.cls.queued} {
-                background:#275b9a !important;
+                background:linear-gradient(to bottom,#d8e8f8 0%,#8db1da 100%) !important;
+                color:#183a61 !important;
+                border-color:#5f82ac !important;
             }
+
             .${APP.cls.input} {
                 width:42px !important;
+                height:20px;
                 text-align:center;
                 border:1px solid #7d510f;
                 background:#f4e4bc;
@@ -129,41 +146,49 @@ javascript:(function () {
                 font-weight:bold;
                 box-sizing:border-box;
             }
+
             .${APP.cls.icon} {
                 display:inline-block;
                 width:22px;
                 height:22px;
-                background:#f4e4bc;
+                background:linear-gradient(to bottom,#f8e6b6 0%,#d7b574 100%);
                 color:#3b240b;
                 font-weight:bold;
                 line-height:22px;
                 text-align:center;
-                border:1px solid #3b240b;
+                border:1px solid #7d510f;
                 border-radius:3px;
-                box-shadow:1px 1px 2px rgba(0,0,0,.3);
+                box-shadow:
+                    inset 0 1px 0 rgba(255,255,255,.55),
+                    0 1px 1px rgba(0,0,0,.18);
             }
+
             #${APP.ids.panel} {
                 position:fixed;
                 right:12px;
                 bottom:12px;
                 z-index:999999;
-                width:250px;
-                background:#f4e4bc;
-                border:2px solid #3b240b;
+                width:255px;
+                background:linear-gradient(to bottom,#f4e4bc 0%,#e3c98f 100%);
+                border:2px solid #7d510f;
                 border-radius:6px;
-                box-shadow:0 4px 18px rgba(0,0,0,.35);
+                box-shadow:0 5px 18px rgba(0,0,0,.35);
                 padding:10px;
                 font-family:Verdana,Arial,sans-serif;
                 color:#3b240b;
             }
+
             #${APP.ids.panel} .mcv6-title {
                 font-weight:bold;
-                font-size:12px;
+                font-size:13px;
                 margin-bottom:8px;
                 display:flex;
                 justify-content:space-between;
                 align-items:center;
+                padding-bottom:5px;
+                border-bottom:1px solid rgba(61,36,11,.22);
             }
+
             #${APP.ids.panel} .mcv6-grid {
                 display:grid;
                 grid-template-columns:1fr 1fr;
@@ -171,6 +196,7 @@ javascript:(function () {
                 font-size:11px;
                 margin-bottom:8px;
             }
+
             #${APP.ids.panel} .mcv6-line {
                 font-size:11px;
                 margin:4px 0;
@@ -178,15 +204,26 @@ javascript:(function () {
                 overflow:hidden;
                 text-overflow:ellipsis;
             }
+
             #${APP.ids.panel} .mcv6-actions {
                 display:flex;
                 gap:6px;
                 flex-wrap:wrap;
                 margin-top:8px;
             }
+
             tr.${APP.cls.doneRow} {
-                opacity:.45;
+                opacity:.50;
                 transition:opacity .2s ease;
+            }
+
+            tr.mcv6-row-queued {
+                box-shadow: inset 3px 0 0 #5f82ac;
+            }
+
+            tr.mcv6-row-running {
+                box-shadow: inset 3px 0 0 #7d510f;
+                background:rgba(255,240,190,.35) !important;
             }
         `;
         document.head.appendChild(css);
@@ -216,16 +253,16 @@ javascript:(function () {
 
         const available = unitsAvailable();
         const units = [
-            { key: 'spear', img: 'unit_spear.png', enabled: false, value: 0 },
-            { key: 'sword', img: 'unit_sword.png', enabled: false, value: 0 },
-            { key: 'axe', img: 'unit_axe.png', enabled: true, value: APP.cfg.axe },
-            ...(available.archer ? [{ key: 'archer', img: 'unit_archer.png', enabled: false, value: 0 }] : []),
-            { key: 'spy', img: 'unit_spy.png', enabled: false, value: 0 },
-            { key: 'light', img: 'unit_light.png', enabled: false, value: 0 },
-            ...(available.marcher ? [{ key: 'marcher', img: 'unit_marcher.png', enabled: false, value: 0 }] : []),
-            { key: 'heavy', img: 'unit_heavy.png', enabled: false, value: 0 },
-            { key: 'ram', img: 'unit_ram.png', enabled: true, value: APP.cfg.ram },
-            { key: 'catapult', img: 'unit_catapult.png', enabled: false, value: 0 }
+            { key: 'spear', img: 'unit_spear.png', value: 0 },
+            { key: 'sword', img: 'unit_sword.png', value: 0 },
+            { key: 'axe', img: 'unit_axe.png', value: 50 },
+            ...(available.archer ? [{ key: 'archer', img: 'unit_archer.png', value: 0 }] : []),
+            { key: 'spy', img: 'unit_spy.png', value: 0 },
+            { key: 'light', img: 'unit_light.png', value: 0 },
+            ...(available.marcher ? [{ key: 'marcher', img: 'unit_marcher.png', value: 0 }] : []),
+            { key: 'heavy', img: 'unit_heavy.png', value: 0 },
+            { key: 'ram', img: 'unit_ram.png', value: 10 },
+            { key: 'catapult', img: 'unit_catapult.png', value: 0 }
         ];
 
         const tr1 = document.createElement('tr');
@@ -241,11 +278,7 @@ javascript:(function () {
         tr2.id = APP.ids.row2;
         let h2 = '';
         units.forEach(u => {
-            if (u.enabled) {
-                h2 += `<td align="center"><input id="cfg_m_as_${u.key}" type="text" value="${u.value}" class="${APP.cls.input}" size="3"></td>`;
-            } else {
-                h2 += `<td align="center"><input type="text" value="0" class="${APP.cls.input}" size="3" disabled style="opacity:.3"></td>`;
-            }
+            h2 += `<td align="center"><input id="cfg_m_as_${u.key}" type="text" value="${u.value}" class="${APP.cls.input}" size="3"></td>`;
         });
         h2 += `<td></td><td></td>`;
         tr2.innerHTML = h2;
@@ -325,14 +358,14 @@ javascript:(function () {
         panel.id = APP.ids.panel;
         panel.innerHTML = `
             <div class="mcv6-title">
-                <span>Modelo M ${APP.version}</span>
+                <span>Derruba Muralha</span>
                 <a href="javascript:void(0)" id="mcv6-close" class="${APP.cls.btnMini}">×</a>
             </div>
             <div class="mcv6-grid">
                 <div><b>Fila:</b> <span id="mcv6-q">0</span></div>
                 <div><b>Status:</b> <span id="mcv6-status">pronto</span></div>
-                <div><b>Axe:</b> <span id="mcv6-axe">${APP.cfg.axe}</span></div>
-                <div><b>Ram:</b> <span id="mcv6-ram">${APP.cfg.ram}</span></div>
+                <div><b>Modo:</b> <span id="mcv6-mode">Livre</span></div>
+                <div><b>Tropas:</b> <span id="mcv6-troops">Todas</span></div>
             </div>
             <div class="mcv6-line"><b>Atual:</b> <span id="mcv6-current">-</span></div>
             <div class="mcv6-line"><b>Último:</b> <span id="mcv6-last">-</span></div>
@@ -371,15 +404,11 @@ javascript:(function () {
         const sEl = document.getElementById('mcv6-status');
         const cEl = document.getElementById('mcv6-current');
         const lEl = document.getElementById('mcv6-last');
-        const aEl = document.getElementById('mcv6-axe');
-        const rEl = document.getElementById('mcv6-ram');
 
         if (qEl) qEl.textContent = String(APP.state.queue.length);
         if (sEl && data?.status != null) sEl.textContent = data.status;
         if (cEl && data?.current != null) cEl.textContent = data.current;
         if (lEl && data?.last != null) lEl.textContent = data.last;
-        if (aEl) aEl.textContent = getCfg('axe', APP.cfg.axe);
-        if (rEl) rEl.textContent = getCfg('ram', APP.cfg.ram);
     }
 
     function clearQueue() {
@@ -387,6 +416,9 @@ javascript:(function () {
             if (item?.btn) {
                 item.btn.dataset.queued = '0';
                 if (item.btn.dataset.running !== '1') setBtn(item.btn, '', 'M');
+            }
+            if (item?.row) {
+                item.row.classList.remove('mcv6-row-queued');
             }
         });
         APP.state.queue = [];
@@ -415,47 +447,54 @@ javascript:(function () {
 
         APP.state.queue.push({ coords, btn, row });
         btn.dataset.queued = '1';
-        setBtn(btn, 'queued', 'Q');
+        setBtn(btn, 'queued', 'M');
+        row.classList.add('mcv6-row-queued');
         updatePanel({ status: APP.state.running ? 'executando' : 'em fila' });
-    }
-
-    function removeFromQueue(btn) {
-        APP.state.queue = APP.state.queue.filter(item => item.btn !== btn);
-        if (btn) btn.dataset.queued = '0';
-        updatePanel({ status: APP.state.running ? 'executando' : 'pronto' });
     }
 
     function cleanupWin(win) {
         try { if (win && !win.closed) win.close(); } catch (e) {}
     }
 
-    function fillAttack(doc, coords, axe, ram) {
+    function fillAttack(doc, coords) {
         const targetInput =
             q('input.target-input-field', doc) ||
             q('input[name="input"]', doc) ||
             q('input[name="x"]', doc);
-
-        const axeInput = doc.getElementById('unit_input_axe');
-        const ramInput = doc.getElementById('unit_input_ram');
 
         const attackBtn =
             doc.getElementById('target_attack') ||
             q('input[type="submit"]', doc) ||
             q('button[type="submit"]', doc);
 
-        if (!targetInput || !axeInput || !ramInput || !attackBtn) return false;
+        if (!targetInput || !attackBtn) return false;
 
         targetInput.value = coords;
         targetInput.dispatchEvent(new Event('input', { bubbles: true }));
         targetInput.dispatchEvent(new Event('change', { bubbles: true }));
 
-        axeInput.value = axe;
-        axeInput.dispatchEvent(new Event('input', { bubbles: true }));
-        axeInput.dispatchEvent(new Event('change', { bubbles: true }));
+        const troopKeys = [
+            'spear',
+            'sword',
+            'axe',
+            'archer',
+            'spy',
+            'light',
+            'marcher',
+            'heavy',
+            'ram',
+            'catapult'
+        ];
 
-        ramInput.value = ram;
-        ramInput.dispatchEvent(new Event('input', { bubbles: true }));
-        ramInput.dispatchEvent(new Event('change', { bubbles: true }));
+        troopKeys.forEach(key => {
+            const cfgValue = getCfg(key, 0);
+            const input = doc.getElementById(`unit_input_${key}`);
+            if (input) {
+                input.value = cfgValue;
+                input.dispatchEvent(new Event('input', { bubbles: true }));
+                input.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+        });
 
         setTimeout(() => {
             try { attackBtn.click(); }
@@ -485,9 +524,13 @@ javascript:(function () {
                 return;
             }
 
+            row.classList.remove('mcv6-row-queued');
+            row.classList.add('mcv6-row-running');
+
             if (rowAlreadyDone(row)) {
                 btn.dataset.queued = '0';
                 setBtn(btn, 'ok', 'OK');
+                row.classList.remove('mcv6-row-running');
                 resolve({ ok: true, coords, reason: 'já concluído' });
                 return;
             }
@@ -497,12 +540,10 @@ javascript:(function () {
                 btn.dataset.queued = '0';
                 btn.dataset.running = '0';
                 setBtn(btn, 'err', 'ERR');
+                row.classList.remove('mcv6-row-running');
                 resolve({ ok: false, coords, reason: 'sem village id' });
                 return;
             }
-
-            const axe = getCfg('axe', APP.cfg.axe);
-            const ram = getCfg('ram', APP.cfg.ram);
 
             btn.dataset.queued = '0';
             btn.dataset.running = '1';
@@ -518,6 +559,7 @@ javascript:(function () {
             if (!win) {
                 btn.dataset.running = '0';
                 setBtn(btn, 'err', 'POP');
+                row.classList.remove('mcv6-row-running');
                 resolve({ ok: false, coords, reason: 'popup bloqueado' });
                 return;
             }
@@ -530,6 +572,9 @@ javascript:(function () {
                 if (done) return;
                 done = true;
                 clearInterval(timer);
+
+                row.classList.remove('mcv6-row-running');
+                row.classList.remove('mcv6-row-queued');
 
                 if (success) {
                     setBtn(btn, 'ok', 'OK');
@@ -576,10 +621,8 @@ javascript:(function () {
                     }
 
                     if (!sent) {
-                        const loaded = fillAttack(doc, coords, axe, ram);
-                        if (loaded) {
-                            sent = true;
-                        }
+                        const loaded = fillAttack(doc, coords);
+                        if (loaded) sent = true;
                     }
                 } catch (e) {
                     log('Erro na execução:', e);
@@ -629,8 +672,8 @@ javascript:(function () {
         const a = document.createElement('a');
         a.href = 'javascript:void(0)';
         a.className = APP.cls.btn;
-        a.textContent = 'M';
-        a.title = `Executar Modelo M em ${coords}`;
+        a.innerHTML = 'M';
+        a.title = `Executar Derruba Muralha em ${coords}`;
         a.addEventListener('click', function (ev) {
             ev.preventDefault();
             if (a.dataset.running === '1') return;
@@ -645,7 +688,7 @@ javascript:(function () {
         const a = document.createElement('a');
         a.href = 'javascript:void(0)';
         a.className = APP.cls.btnPlus;
-        a.textContent = '+';
+        a.innerHTML = '+';
         a.title = `Adicionar ${coords} à fila`;
         a.addEventListener('click', function (ev) {
             ev.preventDefault();
@@ -699,5 +742,5 @@ javascript:(function () {
     updatePanel({ status: 'pronto', current: '-', last: '-' });
     startLoop();
 
-    ok('Modelo M v6 fechada carregado.', 2200);
+    ok('Derruba Muralha carregado.', 2200);
 })();
