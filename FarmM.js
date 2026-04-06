@@ -2,7 +2,7 @@
     'use strict';
 
     const APP = {
-        version: 'v6-premium',
+        version: 'v6-premium-alltroops',
         ids: {
             style: 'mcv6-style',
             header: 'mcv6-th',
@@ -26,8 +26,6 @@
             doneRow: 'mcv6-row-done'
         },
         cfg: {
-            axe: 50,
-            ram: 10,
             timeoutMs: 20000,
             checkMs: 350,
             scanMs: 2200,
@@ -255,16 +253,16 @@
 
         const available = unitsAvailable();
         const units = [
-            { key: 'spear', img: 'unit_spear.png', enabled: false, value: 0 },
-            { key: 'sword', img: 'unit_sword.png', enabled: false, value: 0 },
-            { key: 'axe', img: 'unit_axe.png', enabled: true, value: APP.cfg.axe },
-            ...(available.archer ? [{ key: 'archer', img: 'unit_archer.png', enabled: false, value: 0 }] : []),
-            { key: 'spy', img: 'unit_spy.png', enabled: false, value: 0 },
-            { key: 'light', img: 'unit_light.png', enabled: false, value: 0 },
-            ...(available.marcher ? [{ key: 'marcher', img: 'unit_marcher.png', enabled: false, value: 0 }] : []),
-            { key: 'heavy', img: 'unit_heavy.png', enabled: false, value: 0 },
-            { key: 'ram', img: 'unit_ram.png', enabled: true, value: APP.cfg.ram },
-            { key: 'catapult', img: 'unit_catapult.png', enabled: false, value: 0 }
+            { key: 'spear', img: 'unit_spear.png', value: 0 },
+            { key: 'sword', img: 'unit_sword.png', value: 0 },
+            { key: 'axe', img: 'unit_axe.png', value: 50 },
+            ...(available.archer ? [{ key: 'archer', img: 'unit_archer.png', value: 0 }] : []),
+            { key: 'spy', img: 'unit_spy.png', value: 0 },
+            { key: 'light', img: 'unit_light.png', value: 0 },
+            ...(available.marcher ? [{ key: 'marcher', img: 'unit_marcher.png', value: 0 }] : []),
+            { key: 'heavy', img: 'unit_heavy.png', value: 0 },
+            { key: 'ram', img: 'unit_ram.png', value: 10 },
+            { key: 'catapult', img: 'unit_catapult.png', value: 0 }
         ];
 
         const tr1 = document.createElement('tr');
@@ -280,11 +278,7 @@
         tr2.id = APP.ids.row2;
         let h2 = '';
         units.forEach(u => {
-            if (u.enabled) {
-                h2 += `<td align="center"><input id="cfg_m_as_${u.key}" type="text" value="${u.value}" class="${APP.cls.input}" size="3"></td>`;
-            } else {
-                h2 += `<td align="center"><input type="text" value="0" class="${APP.cls.input}" size="3" disabled style="opacity:.3"></td>`;
-            }
+            h2 += `<td align="center"><input id="cfg_m_as_${u.key}" type="text" value="${u.value}" class="${APP.cls.input}" size="3"></td>`;
         });
         h2 += `<td></td><td></td>`;
         tr2.innerHTML = h2;
@@ -370,8 +364,8 @@
             <div class="mcv6-grid">
                 <div><b>Fila:</b> <span id="mcv6-q">0</span></div>
                 <div><b>Status:</b> <span id="mcv6-status">pronto</span></div>
-                <div><b>Axe:</b> <span id="mcv6-axe">${APP.cfg.axe}</span></div>
-                <div><b>Ram:</b> <span id="mcv6-ram">${APP.cfg.ram}</span></div>
+                <div><b>Modo:</b> <span id="mcv6-mode">Livre</span></div>
+                <div><b>Tropas:</b> <span id="mcv6-troops">Todas</span></div>
             </div>
             <div class="mcv6-line"><b>Atual:</b> <span id="mcv6-current">-</span></div>
             <div class="mcv6-line"><b>Último:</b> <span id="mcv6-last">-</span></div>
@@ -410,15 +404,11 @@
         const sEl = document.getElementById('mcv6-status');
         const cEl = document.getElementById('mcv6-current');
         const lEl = document.getElementById('mcv6-last');
-        const aEl = document.getElementById('mcv6-axe');
-        const rEl = document.getElementById('mcv6-ram');
 
         if (qEl) qEl.textContent = String(APP.state.queue.length);
         if (sEl && data?.status != null) sEl.textContent = data.status;
         if (cEl && data?.current != null) cEl.textContent = data.current;
         if (lEl && data?.last != null) lEl.textContent = data.last;
-        if (aEl) aEl.textContent = getCfg('axe', APP.cfg.axe);
-        if (rEl) rEl.textContent = getCfg('ram', APP.cfg.ram);
     }
 
     function clearQueue() {
@@ -466,33 +456,45 @@
         try { if (win && !win.closed) win.close(); } catch (e) {}
     }
 
-    function fillAttack(doc, coords, axe, ram) {
+    function fillAttack(doc, coords) {
         const targetInput =
             q('input.target-input-field', doc) ||
             q('input[name="input"]', doc) ||
             q('input[name="x"]', doc);
-
-        const axeInput = doc.getElementById('unit_input_axe');
-        const ramInput = doc.getElementById('unit_input_ram');
 
         const attackBtn =
             doc.getElementById('target_attack') ||
             q('input[type="submit"]', doc) ||
             q('button[type="submit"]', doc);
 
-        if (!targetInput || !axeInput || !ramInput || !attackBtn) return false;
+        if (!targetInput || !attackBtn) return false;
 
         targetInput.value = coords;
         targetInput.dispatchEvent(new Event('input', { bubbles: true }));
         targetInput.dispatchEvent(new Event('change', { bubbles: true }));
 
-        axeInput.value = axe;
-        axeInput.dispatchEvent(new Event('input', { bubbles: true }));
-        axeInput.dispatchEvent(new Event('change', { bubbles: true }));
+        const troopKeys = [
+            'spear',
+            'sword',
+            'axe',
+            'archer',
+            'spy',
+            'light',
+            'marcher',
+            'heavy',
+            'ram',
+            'catapult'
+        ];
 
-        ramInput.value = ram;
-        ramInput.dispatchEvent(new Event('input', { bubbles: true }));
-        ramInput.dispatchEvent(new Event('change', { bubbles: true }));
+        troopKeys.forEach(key => {
+            const cfgValue = getCfg(key, 0);
+            const input = doc.getElementById(`unit_input_${key}`);
+            if (input) {
+                input.value = cfgValue;
+                input.dispatchEvent(new Event('input', { bubbles: true }));
+                input.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+        });
 
         setTimeout(() => {
             try { attackBtn.click(); }
@@ -542,9 +544,6 @@
                 resolve({ ok: false, coords, reason: 'sem village id' });
                 return;
             }
-
-            const axe = getCfg('axe', APP.cfg.axe);
-            const ram = getCfg('ram', APP.cfg.ram);
 
             btn.dataset.queued = '0';
             btn.dataset.running = '1';
@@ -622,7 +621,7 @@
                     }
 
                     if (!sent) {
-                        const loaded = fillAttack(doc, coords, axe, ram);
+                        const loaded = fillAttack(doc, coords);
                         if (loaded) sent = true;
                     }
                 } catch (e) {
