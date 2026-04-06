@@ -1,8 +1,8 @@
-javascript:(function () {
+(function () {
     'use strict';
 
     const APP = {
-        version: 'v6-fechada',
+        version: 'v6-premium',
         ids: {
             style: 'mcv6-style',
             header: 'mcv6-th',
@@ -52,7 +52,7 @@ javascript:(function () {
     }
 
     function log() {
-        console.log('[Modelo M v6]', ...arguments);
+        console.log('[Derruba Muralha]', ...arguments);
     }
 
     function q(sel, root) {
@@ -76,52 +76,71 @@ javascript:(function () {
             .${APP.cls.btnMini} {
                 display:inline-block;
                 min-width:22px;
-                padding:3px 7px;
+                height:22px;
+                line-height:20px;
+                padding:0 6px;
                 margin:0 1px;
-                background:#8b4513;
-                color:#fff !important;
-                border:1px solid #3b240b;
+                background:linear-gradient(to bottom,#f8e6b6 0%,#d7b574 100%);
+                color:#3b240b !important;
+                border:1px solid #7d510f;
                 border-radius:3px;
                 text-decoration:none !important;
                 cursor:pointer;
                 font-weight:bold;
                 font-size:11px;
-                line-height:16px;
                 text-align:center;
                 box-sizing:border-box;
                 user-select:none;
+                box-shadow:
+                    inset 0 1px 0 rgba(255,255,255,.55),
+                    0 1px 1px rgba(0,0,0,.18);
             }
+
             .${APP.cls.btn}:hover,
             .${APP.cls.btnPlus}:hover,
             .${APP.cls.btnRun}:hover,
             .${APP.cls.btnStop}:hover,
             .${APP.cls.btnMini}:hover {
-                background:#a0522d;
+                background:linear-gradient(to bottom,#fff0c7 0%,#e2c182 100%);
+                color:#2a1707 !important;
             }
+
             .${APP.cls.btn}.${APP.cls.working},
             .${APP.cls.btnPlus}.${APP.cls.working},
             .${APP.cls.btnMini}.${APP.cls.working} {
-                background:#666 !important;
+                background:linear-gradient(to bottom,#d9d9d9 0%,#bdbdbd 100%) !important;
+                color:#444 !important;
                 cursor:wait !important;
                 pointer-events:none !important;
             }
+
             .${APP.cls.btn}.${APP.cls.ok},
             .${APP.cls.btnPlus}.${APP.cls.ok},
             .${APP.cls.btnMini}.${APP.cls.ok} {
-                background:#c8f2c2 !important;
+                background:linear-gradient(to bottom,#dff4cf 0%,#9fd17d 100%) !important;
+                color:#214411 !important;
+                border-color:#5f8f43 !important;
             }
+
             .${APP.cls.btn}.${APP.cls.err},
             .${APP.cls.btnPlus}.${APP.cls.err},
             .${APP.cls.btnMini}.${APP.cls.err} {
-                background:#f2c2c2 !important;
+                background:linear-gradient(to bottom,#f7d6d6 0%,#d98e8e 100%) !important;
+                color:#5a1616 !important;
+                border-color:#9b4f4f !important;
             }
+
             .${APP.cls.btn}.${APP.cls.queued},
             .${APP.cls.btnPlus}.${APP.cls.queued},
             .${APP.cls.btnMini}.${APP.cls.queued} {
-                background:#c2d8f2 !important;
+                background:linear-gradient(to bottom,#d8e8f8 0%,#8db1da 100%) !important;
+                color:#183a61 !important;
+                border-color:#5f82ac !important;
             }
+
             .${APP.cls.input} {
                 width:42px !important;
+                height:20px;
                 text-align:center;
                 border:1px solid #7d510f;
                 background:#f4e4bc;
@@ -129,41 +148,49 @@ javascript:(function () {
                 font-weight:bold;
                 box-sizing:border-box;
             }
+
             .${APP.cls.icon} {
                 display:inline-block;
                 width:22px;
                 height:22px;
-                background:#f4e4bc;
+                background:linear-gradient(to bottom,#f8e6b6 0%,#d7b574 100%);
                 color:#3b240b;
                 font-weight:bold;
                 line-height:22px;
                 text-align:center;
-                border:1px solid #3b240b;
+                border:1px solid #7d510f;
                 border-radius:3px;
-                box-shadow:1px 1px 2px rgba(0,0,0,.3);
+                box-shadow:
+                    inset 0 1px 0 rgba(255,255,255,.55),
+                    0 1px 1px rgba(0,0,0,.18);
             }
+
             #${APP.ids.panel} {
                 position:fixed;
                 right:12px;
                 bottom:12px;
                 z-index:999999;
-                width:250px;
-                background:#f4e4bc;
-                border:2px solid #3b240b;
+                width:255px;
+                background:linear-gradient(to bottom,#f4e4bc 0%,#e3c98f 100%);
+                border:2px solid #7d510f;
                 border-radius:6px;
-                box-shadow:0 4px 18px rgba(0,0,0,.35);
+                box-shadow:0 5px 18px rgba(0,0,0,.35);
                 padding:10px;
                 font-family:Verdana,Arial,sans-serif;
                 color:#3b240b;
             }
+
             #${APP.ids.panel} .mcv6-title {
                 font-weight:bold;
-                font-size:12px;
+                font-size:13px;
                 margin-bottom:8px;
                 display:flex;
                 justify-content:space-between;
                 align-items:center;
+                padding-bottom:5px;
+                border-bottom:1px solid rgba(61,36,11,.22);
             }
+
             #${APP.ids.panel} .mcv6-grid {
                 display:grid;
                 grid-template-columns:1fr 1fr;
@@ -171,6 +198,7 @@ javascript:(function () {
                 font-size:11px;
                 margin-bottom:8px;
             }
+
             #${APP.ids.panel} .mcv6-line {
                 font-size:11px;
                 margin:4px 0;
@@ -178,15 +206,26 @@ javascript:(function () {
                 overflow:hidden;
                 text-overflow:ellipsis;
             }
+
             #${APP.ids.panel} .mcv6-actions {
                 display:flex;
                 gap:6px;
                 flex-wrap:wrap;
                 margin-top:8px;
             }
+
             tr.${APP.cls.doneRow} {
-                opacity:.45;
+                opacity:.50;
                 transition:opacity .2s ease;
+            }
+
+            tr.mcv6-row-queued {
+                box-shadow: inset 3px 0 0 #5f82ac;
+            }
+
+            tr.mcv6-row-running {
+                box-shadow: inset 3px 0 0 #7d510f;
+                background:rgba(255,240,190,.35) !important;
             }
         `;
         document.head.appendChild(css);
@@ -388,6 +427,9 @@ javascript:(function () {
                 item.btn.dataset.queued = '0';
                 if (item.btn.dataset.running !== '1') setBtn(item.btn, '', 'M');
             }
+            if (item?.row) {
+                item.row.classList.remove('mcv6-row-queued');
+            }
         });
         APP.state.queue = [];
         updatePanel({ status: APP.state.running ? 'executando' : 'fila limpa' });
@@ -415,14 +457,9 @@ javascript:(function () {
 
         APP.state.queue.push({ coords, btn, row });
         btn.dataset.queued = '1';
-        setBtn(btn, 'queued', 'Q');
+        setBtn(btn, 'queued', 'M');
+        row.classList.add('mcv6-row-queued');
         updatePanel({ status: APP.state.running ? 'executando' : 'em fila' });
-    }
-
-    function removeFromQueue(btn) {
-        APP.state.queue = APP.state.queue.filter(item => item.btn !== btn);
-        if (btn) btn.dataset.queued = '0';
-        updatePanel({ status: APP.state.running ? 'executando' : 'pronto' });
     }
 
     function cleanupWin(win) {
@@ -485,9 +522,13 @@ javascript:(function () {
                 return;
             }
 
+            row.classList.remove('mcv6-row-queued');
+            row.classList.add('mcv6-row-running');
+
             if (rowAlreadyDone(row)) {
                 btn.dataset.queued = '0';
                 setBtn(btn, 'ok', 'OK');
+                row.classList.remove('mcv6-row-running');
                 resolve({ ok: true, coords, reason: 'já concluído' });
                 return;
             }
@@ -497,6 +538,7 @@ javascript:(function () {
                 btn.dataset.queued = '0';
                 btn.dataset.running = '0';
                 setBtn(btn, 'err', 'ERR');
+                row.classList.remove('mcv6-row-running');
                 resolve({ ok: false, coords, reason: 'sem village id' });
                 return;
             }
@@ -518,6 +560,7 @@ javascript:(function () {
             if (!win) {
                 btn.dataset.running = '0';
                 setBtn(btn, 'err', 'POP');
+                row.classList.remove('mcv6-row-running');
                 resolve({ ok: false, coords, reason: 'popup bloqueado' });
                 return;
             }
@@ -530,6 +573,9 @@ javascript:(function () {
                 if (done) return;
                 done = true;
                 clearInterval(timer);
+
+                row.classList.remove('mcv6-row-running');
+                row.classList.remove('mcv6-row-queued');
 
                 if (success) {
                     setBtn(btn, 'ok', 'OK');
@@ -577,9 +623,7 @@ javascript:(function () {
 
                     if (!sent) {
                         const loaded = fillAttack(doc, coords, axe, ram);
-                        if (loaded) {
-                            sent = true;
-                        }
+                        if (loaded) sent = true;
                     }
                 } catch (e) {
                     log('Erro na execução:', e);
@@ -630,7 +674,7 @@ javascript:(function () {
         a.href = 'javascript:void(0)';
         a.className = APP.cls.btn;
         a.innerHTML = 'M';
-        a.title = `Executar Modelo M em ${coords}`;
+        a.title = `Executar Derruba Muralha em ${coords}`;
         a.addEventListener('click', function (ev) {
             ev.preventDefault();
             if (a.dataset.running === '1') return;
@@ -646,7 +690,6 @@ javascript:(function () {
         a.href = 'javascript:void(0)';
         a.className = APP.cls.btnPlus;
         a.innerHTML = '+';
-        a.style.fontSize = '12px';
         a.title = `Adicionar ${coords} à fila`;
         a.addEventListener('click', function (ev) {
             ev.preventDefault();
@@ -700,5 +743,5 @@ javascript:(function () {
     updatePanel({ status: 'pronto', current: '-', last: '-' });
     startLoop();
 
-    ok('Modelo M v6 fechada carregado.', 2200);
+    ok('Derruba Muralha carregado.', 2200);
 })();
