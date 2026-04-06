@@ -108,17 +108,17 @@ javascript:(function () {
             .${APP.cls.btn}.${APP.cls.ok},
             .${APP.cls.btnPlus}.${APP.cls.ok},
             .${APP.cls.btnMini}.${APP.cls.ok} {
-                background:#21881e !important;
+                background:#c8f2c2 !important;
             }
             .${APP.cls.btn}.${APP.cls.err},
             .${APP.cls.btnPlus}.${APP.cls.err},
             .${APP.cls.btnMini}.${APP.cls.err} {
-                background:#b33 !important;
+                background:#f2c2c2 !important;
             }
             .${APP.cls.btn}.${APP.cls.queued},
             .${APP.cls.btnPlus}.${APP.cls.queued},
             .${APP.cls.btnMini}.${APP.cls.queued} {
-                background:#275b9a !important;
+                background:#c2d8f2 !important;
             }
             .${APP.cls.input} {
                 width:42px !important;
@@ -325,7 +325,7 @@ javascript:(function () {
         panel.id = APP.ids.panel;
         panel.innerHTML = `
             <div class="mcv6-title">
-                <span>Modelo M ${APP.version}</span>
+                <span>Derruba Muralha</span>
                 <a href="javascript:void(0)" id="mcv6-close" class="${APP.cls.btnMini}">×</a>
             </div>
             <div class="mcv6-grid">
@@ -629,7 +629,7 @@ javascript:(function () {
         const a = document.createElement('a');
         a.href = 'javascript:void(0)';
         a.className = APP.cls.btn;
-        a.textContent = 'M';
+        a.innerHTML = 'M';
         a.title = `Executar Modelo M em ${coords}`;
         a.addEventListener('click', function (ev) {
             ev.preventDefault();
@@ -645,7 +645,8 @@ javascript:(function () {
         const a = document.createElement('a');
         a.href = 'javascript:void(0)';
         a.className = APP.cls.btnPlus;
-        a.textContent = '+';
+        a.innerHTML = '+';
+        a.style.fontSize = '12px';
         a.title = `Adicionar ${coords} à fila`;
         a.addEventListener('click', function (ev) {
             ev.preventDefault();
