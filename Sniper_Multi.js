@@ -23,7 +23,7 @@ const SNIPER = {
         $(table).append(`
             <tr id="SniperBox">
                 <td colspan="2" style="background:#f4e4bc; padding:8px;">
-                    <b>🧠 SNIPER V15</b><br>
+                    <b>SNIPER</b><br>
                     <input type="datetime-local" id="SNIPE_TIME" step="0.001" style="width:220px;">
                     <button id="SN_SYNC" class="btn">SYNC</button>
                     <button id="SN_RUN" class="btn">AGENDAR</button>
